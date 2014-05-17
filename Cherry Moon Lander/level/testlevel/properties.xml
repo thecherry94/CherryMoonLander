@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Level>
+  
+  <Record>0</Record>
+  <Gravity>10.0</Gravity>
+  <PlayerMass>5.0</PlayerMass>
+  <PlayerThrust>7.0</PlayerThrust>
+  <StartFuel>100</StartFuel>
+  <FuelConsumption>5</FuelConsumption>
+
+  <Fuel>
+    <Item X="300" Y="100"></Item>
+  </Fuel>
+  
+  <SpawnPoint X="100" Y="100"></SpawnPoint>
+  <EndArea X="200" Y="200" W="50" H="50"></EndArea>
+  
+</Level>

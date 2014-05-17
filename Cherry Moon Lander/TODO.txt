@@ -1,0 +1,32 @@
+** New features **
+Make level class
+Make player class
+Make HUD
+Make items
+
+
+** Changes **
+Move physics from Game class to Level class
+
+
+
+
+
+
+
+
+** Basic level xml structure **
+<level>
+	<record></record>
+	<gravity></gravity>
+	<playermass></playermass>
+	<playerthrust></playerthrust>
+	<spawnpoint x="" y="" />
+	<endarea x="" y="" w="" h="" />
+	<startfuel></startfuel>
+	<fuelconsumption></fuelconsumption>
+	<fuel>
+		<item x="" y="" />
+		<item x="" y="" />
+	</fuel>
+</level>
