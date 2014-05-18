@@ -4,6 +4,7 @@
 
 #include "precomp.hpp"
 #include "FuelItem.hpp"
+#include "Player.hpp"
 
 
 class Level
