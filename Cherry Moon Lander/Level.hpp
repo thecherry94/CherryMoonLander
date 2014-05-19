@@ -6,7 +6,7 @@
 #include "FuelItem.hpp"
 #include "Player.hpp"
 
-
+class Player;
 class Level
 {
 	friend Level;
@@ -15,6 +15,8 @@ class Level
 
 		// Variables
 		//
+
+		Player* m_pPlayer;
 
 		std::string m_levelName;
 
@@ -32,6 +34,10 @@ class Level
 		int m_levelRecord;
 		int m_levelTimeStart;
 		int m_levelTimeEnd;
+		int m_playerStartFuel;
+		float m_playerMass;
+		float m_playerThrust;
+		float m_playerFuelConsumption;
 		bool m_levelActive;
 
 		std::list<FuelItem*> m_fuelItems;
@@ -49,6 +55,8 @@ class Level
 		// Methods
 		//
 
+		~Level();
+
 		static Level* load(std::string);
 		void update(float);
 		void draw();
@@ -64,5 +72,12 @@ class Level
 		int get_start_time() { return m_levelTimeStart; }
 		int get_end_time() { return m_levelTimeEnd; }
 		int get_elapsed_time() { return m_levelTimeEnd - m_levelTimeStart; }
+
+		clan::Vec2f get_spawn_point() { return m_levelSpawnPoint; }
+		clan::Rect get_end_area() { return m_levelEndArea; }
+		int get_start_fuel() { return m_playerStartFuel; }
+		float get_fuel_consumption() { return m_playerFuelConsumption; }
+		float get_player_mass() { return m_playerMass; }
+		float get_player_thrust() { return m_playerThrust; }
 
 };

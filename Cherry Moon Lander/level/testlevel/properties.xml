@@ -2,8 +2,8 @@
 <Level>
   
   <Record>0</Record>
-  <Gravity>10.0</Gravity>
-  <PlayerMass>5.0</PlayerMass>
+  <Gravity>1.0</Gravity>
+  <PlayerMass>50.0</PlayerMass>
   <PlayerThrust>7.0</PlayerThrust>
   <StartFuel>100</StartFuel>
   <FuelConsumption>5</FuelConsumption>

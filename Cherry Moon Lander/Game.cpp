@@ -14,8 +14,8 @@ Game::Game()
 void Game::setup_window()
 {
 	clan::DisplayWindowDescription desc;
-	//desc.set_position(clan::Rect(-800, 100, 0, 700), true);
-	desc.set_size(clan::Size(800, 600), true);
+	desc.set_position(clan::Rect(-800, 100, 0, 700), true);
+	//desc.set_size(clan::Size(800, 600), true);
 	desc.set_allow_resize(false);
 	desc.set_multisampling(4);
 	desc.set_title("Cherry Moon Lander - v0.1 Beta");

@@ -1,8 +1,69 @@
 #include "Player.hpp"
+#include "Game.hpp"
 
-
-Player::Player(clan::Vec2f start_pos, Level* pLevel)
+Player::Player(Level* pLevel)
 {
-	m_position = start_pos;
 	m_pLevel = pLevel;
+
+	clan::DisplayWindow win = Game::get_window();
+	m_canvas = clan::Canvas(win);
+	m_keyboard = win.get_ic().get_keyboard();
+	m_mouse = win.get_ic().get_mouse();
+
+	m_acceptInput = false;
+
+	m_thrust = m_pLevel->get_player_thrust();
+	m_position = m_pLevel->get_spawn_point();
+	m_mass = m_pLevel->get_player_mass();
+	
+	m_speed = clan::Vec2f(0, 0);
+	m_physicsWorld = m_pLevel->get_physics_world();
+	m_sprite = clan::Sprite::resource(m_canvas, "playerShip", Game::get_resource_manager());
+	m_collisionOutline = m_sprite.create_collision_outline(m_canvas, 128, clan::OutlineAccuracy::accuracy_poor);
+
+	setup_physics();
+	m_physicsBody.set_position(m_position);
+	m_physicsBody.set_angle(clan::Angle::from_degrees(90));
+
+	slot_collision_begin = m_physicsBody.sig_begin_collision().connect(this, &Player::on_collision_start);
+}
+
+
+void Player::setup_physics()
+{
+	clan::PhysicsContext pc = m_physicsWorld.get_pc();
+
+	clan::BodyDescription body_desc(m_physicsWorld);
+	body_desc.set_type(clan::BodyType::body_dynamic);
+	m_physicsBody = clan::Body(pc, body_desc);
+
+	clan::ChainShape outline_shape(m_physicsWorld);
+	outline_shape.create_loop(m_collisionOutline);
+
+	clan::FixtureDescription fix_desc(m_physicsWorld);
+	fix_desc.set_shape(outline_shape);
+	fix_desc.set_restitution(0.2f);
+	fix_desc.set_friction(0.01f);
+	fix_desc.set_density(m_mass);
+
+	clan::Fixture(pc, m_physicsBody, fix_desc);
+}
+
+
+void Player::update(float delta)
+{
+	m_position = m_physicsBody.get_position();
+}
+
+
+void Player::draw()
+{
+	m_sprite.set_angle(m_physicsBody.get_angle());
+	m_sprite.draw(m_canvas, m_physicsBody.get_position().x, m_physicsBody.get_position().y);
+}
+
+
+void Player::on_collision_start(clan::Body body)
+{
+
 }

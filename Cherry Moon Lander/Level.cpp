@@ -38,8 +38,8 @@ Level::Level(std::string folderName)
 	// Load single values from xml
 	m_levelRecord = atoi(root_node->first_node("Record")->value());
 	gravity = (float)atof(root_node->first_node("Gravity")->value());
-	player_mass = (float)atof(root_node->first_node("PlayerMass")->value());
-	player_thrust = (float)atof(root_node->first_node("PlayerThrust")->value());
+	m_playerMass = (float)atof(root_node->first_node("PlayerMass")->value());
+	m_playerThrust = (float)atof(root_node->first_node("PlayerThrust")->value());
 	m_levelSpawnPoint = clan::Point(
 		atoi(root_node->first_node("SpawnPoint")->first_attribute("X")->value()),
 		atoi(root_node->first_node("SpawnPoint")->first_attribute("Y")->value()));
@@ -49,8 +49,8 @@ Level::Level(std::string folderName)
 		clan::Size(
 			atoi(root_node->first_node("EndArea")->first_attribute("W")->value()),
 			atoi(root_node->first_node("EndArea")->first_attribute("H")->value())));
-	start_fuel = atoi(root_node->first_node("StartFuel")->value());
-	fuel_consumption = atoi(root_node->first_node("FuelConsumption")->value());
+	m_playerStartFuel = atoi(root_node->first_node("StartFuel")->value());
+	m_playerFuelConsumption = atoi(root_node->first_node("FuelConsumption")->value());
 
 
 	// Load fuel items from xml	
@@ -70,6 +70,15 @@ Level::Level(std::string folderName)
 
 	setup_physics(gravity);
 	setup_body();
+
+	m_pPlayer = new Player(this);
+}
+
+
+Level::~Level()
+{
+	delete(m_pPlayer);
+	m_pPlayer = NULL;
 }
 
 
@@ -77,6 +86,7 @@ void Level::update(float delta)
 {
 	m_physicsWorld.step();
 
+	m_pPlayer->update(delta);
 	m_levelSprite.set_angle(m_levelPhysicsBody.get_angle());
 }
 
@@ -84,7 +94,7 @@ void Level::draw()
 {
 	m_levelSprite.draw(m_canvas, m_levelPhysicsBody.get_position().x, m_levelPhysicsBody.get_position().y);
 
-
+	m_pPlayer->draw();
 
 	#ifdef __DEBUGMODE__
 		m_levelCollisionOutline.draw(0,0, clan::Colorf::red, m_canvas);
@@ -118,7 +128,7 @@ void Level::setup_body()
 	fix_desc.set_shape(body_shape);
 	fix_desc.set_restitution(0.1f);
 	fix_desc.set_friction(0.05f);
-	fix_desc.set_density(50.0f);
+	fix_desc.set_density(1000.0f);
 	
 	clan::Fixture body_fixture(pc, m_levelPhysicsBody, fix_desc);
 }
@@ -128,11 +138,11 @@ void Level::setup_physics(float gravity)
 {
 	clan::PhysicsWorldDescription desc;
 	desc.set_gravity(0.0f, gravity);
-	desc.set_sleep(true);
+	desc.set_sleep(false);
 	desc.set_physic_scale(100);
 	desc.set_timestep(1.0f / 60.0f);
 	desc.set_velocity_iterations(8);
-	desc.set_position_iterations(3);
+	desc.set_position_iterations(10);
 
 	m_physicsWorld = clan::PhysicsWorld(desc);
 }
