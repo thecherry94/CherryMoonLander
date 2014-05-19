@@ -5,8 +5,10 @@
 #include "precomp.hpp"
 #include "FuelItem.hpp"
 #include "Player.hpp"
+#include "Hud.hpp"
 
 class Player;
+class Hud;
 class Level
 {
 	friend Level;
@@ -17,6 +19,7 @@ class Level
 		//
 
 		Player* m_pPlayer;
+		Hud* m_pHud;
 
 		std::string m_levelName;
 

@@ -72,6 +72,7 @@ Level::Level(std::string folderName)
 	setup_body();
 
 	m_pPlayer = new Player(this);
+	m_pHud = new Hud(m_pPlayer);
 }
 
 
@@ -95,6 +96,7 @@ void Level::draw()
 	m_levelSprite.draw(m_canvas, m_levelPhysicsBody.get_position().x, m_levelPhysicsBody.get_position().y);
 
 	m_pPlayer->draw();
+	m_pHud->draw();
 
 	#ifdef __DEBUGMODE__
 		m_levelCollisionOutline.draw(0,0, clan::Colorf::red, m_canvas);

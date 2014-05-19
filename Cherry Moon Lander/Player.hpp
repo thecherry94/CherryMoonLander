@@ -23,8 +23,12 @@ class Player
 		clan::Body m_physicsBody;
 
 		bool m_acceptInput;
+		int m_hp;
 		float m_thrust;
 		float m_mass;
+		float m_fuelCurrent;
+		float m_fuelMax;
+		float m_fuelConsumption;
 
 		clan::Slot slot_collision_begin;
 
@@ -45,4 +49,14 @@ class Player
 		void update(float);
 		void draw();
 
+
+		// Getter & Setter
+		//
+		clan::Vec2f get_position() { return m_position; }
+		int get_health() { return m_hp; }
+		float get_thrust() { return m_thrust; }
+		float get_mass() { return m_mass; }
+		int get_fuel_current() { return m_fuelCurrent; }
+		int get_fuel_max() { return m_fuelMax; }
+		int get_fuel_consumption() { return m_fuelConsumption; }
 };

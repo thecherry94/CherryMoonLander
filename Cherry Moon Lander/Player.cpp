@@ -15,7 +15,11 @@ Player::Player(Level* pLevel)
 	m_thrust = m_pLevel->get_player_thrust();
 	m_position = m_pLevel->get_spawn_point();
 	m_mass = m_pLevel->get_player_mass();
-	
+	m_fuelCurrent = m_pLevel->get_start_fuel();
+	m_fuelMax = m_fuelCurrent;
+	m_fuelConsumption = m_pLevel->get_fuel_consumption();
+	m_hp = 100;
+
 	m_speed = clan::Vec2f(0, 0);
 	m_physicsWorld = m_pLevel->get_physics_world();
 	m_sprite = clan::Sprite::resource(m_canvas, "playerShip", Game::get_resource_manager());

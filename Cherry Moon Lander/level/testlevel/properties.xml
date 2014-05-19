@@ -5,7 +5,7 @@
   <Gravity>1.0</Gravity>
   <PlayerMass>50.0</PlayerMass>
   <PlayerThrust>7.0</PlayerThrust>
-  <StartFuel>100</StartFuel>
+  <StartFuel>250</StartFuel>
   <FuelConsumption>5</FuelConsumption>
 
   <Fuel>
