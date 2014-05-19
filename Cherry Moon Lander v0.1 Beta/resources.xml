@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <sprite name="playerShip">
+    <image file="gfx/playerShip.png" />
+    <translation origin="center"/>
+    <rotation origin="center"/>
+  </sprite>
+</resources>

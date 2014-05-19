@@ -15,12 +15,18 @@ class Game
 		static clan::DisplayWindow m_window;
 		static bool m_quit;
 
+		clan::Slot m_slotOnExit;
+
 
 		// Methods
 		//
 
 		void setup_window();
 		void setup_physics();
+
+		// Events
+		//
+		void on_window_close();
 
 	public:
 

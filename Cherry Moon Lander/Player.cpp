@@ -27,7 +27,7 @@ Player::Player(Level* pLevel)
 
 	setup_physics();
 	m_physicsBody.set_position(m_position);
-	m_physicsBody.set_angle(clan::Angle::from_degrees(90));
+	m_physicsBody.set_angle(clan::Angle::from_degrees(0));
 
 	slot_collision_begin = m_physicsBody.sig_begin_collision().connect(this, &Player::on_collision_start);
 }
@@ -41,8 +41,11 @@ void Player::setup_physics()
 	body_desc.set_type(clan::BodyType::body_dynamic);
 	m_physicsBody = clan::Body(pc, body_desc);
 
-	clan::ChainShape outline_shape(m_physicsWorld);
-	outline_shape.create_loop(m_collisionOutline);
+	//clan::ChainShape outline_shape(m_physicsWorld);
+	//outline_shape.create_loop(m_collisionOutline);
+	
+	clan::PolygonShape outline_shape(m_physicsWorld);
+	outline_shape.set_as_box(m_sprite.get_width()/2.0f, m_sprite.get_height()/2.0f);
 
 	clan::FixtureDescription fix_desc(m_physicsWorld);
 	fix_desc.set_shape(outline_shape);
@@ -57,12 +60,15 @@ void Player::setup_physics()
 void Player::update(float delta)
 {
 	m_position = m_physicsBody.get_position();
+	m_sprite.set_angle(m_physicsBody.get_angle());
+
+
 }
 
 
 void Player::draw()
 {
-	m_sprite.set_angle(m_physicsBody.get_angle());
+	
 	m_sprite.draw(m_canvas, m_physicsBody.get_position().x, m_physicsBody.get_position().y);
 }
 
