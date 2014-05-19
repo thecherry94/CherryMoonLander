@@ -85,6 +85,7 @@
     <ClInclude Include="App.hpp" />
     <ClInclude Include="FuelItem.hpp" />
     <ClInclude Include="Level.hpp" />
+    <ClInclude Include="Player.hpp" />
     <ClInclude Include="precomp.hpp" />
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -97,6 +98,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="precomp.cpp" />
     <ClCompile Include="Program.cpp" />
   </ItemGroup>
