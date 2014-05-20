@@ -2,11 +2,11 @@
 <Level>
   
   <Record>0</Record>
-  <Gravity>0.1</Gravity>
-  <PlayerMass>50.0</PlayerMass>
-  <PlayerThrust>2.0</PlayerThrust>
+  <Gravity>1</Gravity>
+  <PlayerMass>30.0</PlayerMass>
+  <PlayerThrust>14.0</PlayerThrust>
   <StartFuel>250</StartFuel>
-  <FuelConsumption>5</FuelConsumption>
+  <FuelConsumption>25</FuelConsumption>
 
   <Fuel>
     <Item X="300" Y="100"></Item>

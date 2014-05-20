@@ -31,12 +31,14 @@ class Player
 		float m_fuelConsumption;
 
 		clan::Slot slot_collision_begin;
-
+		clan::Slot slot_collision_end;
+		
 		// Methods
 		//
 
 		void setup_physics();
 		void on_collision_start(clan::Body);
+		void on_collision_end(clan::Body);
 
 	public:
 
@@ -56,7 +58,8 @@ class Player
 		int get_health() { return m_hp; }
 		float get_thrust() { return m_thrust; }
 		float get_mass() { return m_mass; }
-		int get_fuel_current() { return m_fuelCurrent; }
-		int get_fuel_max() { return m_fuelMax; }
-		int get_fuel_consumption() { return m_fuelConsumption; }
+		float get_fuel_current() { return m_fuelCurrent; }
+		float get_fuel_max() { return m_fuelMax; }
+		float get_fuel_consumption() { return m_fuelConsumption; }
+		clan::Angle get_angle() { return m_physicsBody.get_angle(); }
 };

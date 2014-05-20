@@ -73,6 +73,10 @@ Level::Level(std::string folderName)
 
 	m_pPlayer = new Player(this);
 	m_pHud = new Hud(m_pPlayer);
+
+	m_physicsWorld.set_olm(true);
+	slot_collision_begin = m_levelPhysicsBody.sig_begin_collision().connect(this, &Level::on_collision_start);
+	slot_collision_end = m_levelPhysicsBody.sig_end_collision().connect(this, &Level::on_collision_end);
 }
 
 
@@ -85,7 +89,7 @@ Level::~Level()
 
 void Level::update(float delta)
 {
-	m_physicsWorld.step();
+	m_physicsWorld.step(delta);
 
 	m_pPlayer->update(delta);
 	m_levelSprite.set_angle(m_levelPhysicsBody.get_angle());
@@ -140,11 +144,23 @@ void Level::setup_physics(float gravity)
 {
 	clan::PhysicsWorldDescription desc;
 	desc.set_gravity(0.0f, gravity);
-	desc.set_sleep(false);
-	desc.set_physic_scale(100);
+	desc.set_sleep(true);
+	desc.set_physic_scale(99);
 	desc.set_timestep(1.0f / 60.0f);
 	desc.set_velocity_iterations(8);
-	desc.set_position_iterations(10);
+	desc.set_position_iterations(3);
 
 	m_physicsWorld = clan::PhysicsWorld(desc);
+}
+
+
+void Level::on_collision_start(clan::Body body)
+{
+	Game::commence_quit_application();
+}
+
+
+void Level::on_collision_end(clan::Body body)
+{
+
 }
