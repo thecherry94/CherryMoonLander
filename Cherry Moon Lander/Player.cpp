@@ -10,7 +10,7 @@ Player::Player(Level* pLevel)
 	m_keyboard = win.get_ic().get_keyboard();
 	m_mouse = win.get_ic().get_mouse();
 
-	m_acceptInput = false;
+	m_acceptInput = true;
 
 	m_thrust = m_pLevel->get_player_thrust();
 	m_position = m_pLevel->get_spawn_point();
@@ -44,13 +44,15 @@ void Player::setup_physics()
 	//clan::ChainShape outline_shape(m_physicsWorld);
 	//outline_shape.create_loop(m_collisionOutline);
 	
-	clan::PolygonShape outline_shape(m_physicsWorld);
-	outline_shape.set_as_box(m_sprite.get_width()/2.0f, m_sprite.get_height()/2.0f);
+	//clan::PolygonShape outline_shape(m_physicsWorld);
+	//outline_shape.set_as_box(m_sprite.get_width()/2.0f, m_sprite.get_height()/2.0f);
 
+	clan::EdgeShape outline_shape(m_physicsWorld);
+	
 	clan::FixtureDescription fix_desc(m_physicsWorld);
 	fix_desc.set_shape(outline_shape);
-	fix_desc.set_restitution(0.2f);
-	fix_desc.set_friction(0.01f);
+	fix_desc.set_restitution(0.0f);
+	fix_desc.set_friction(1.0f);
 	fix_desc.set_density(m_mass);
 
 	clan::Fixture(pc, m_physicsBody, fix_desc);
@@ -62,7 +64,24 @@ void Player::update(float delta)
 	m_position = m_physicsBody.get_position();
 	m_sprite.set_angle(m_physicsBody.get_angle());
 
+	if(m_acceptInput)
+	{
+		if(m_keyboard.get_keycode(clan::keycode_space))
+		{
+			m_physicsBody.apply_force_to_center(clan::Vec2f(
+				cos(m_physicsBody.get_angle().from_degrees(m_physicsBody.get_angle().to_degrees() - 90).to_radians()) * m_thrust, 
+				sin(m_physicsBody.get_angle().from_degrees(m_physicsBody.get_angle().to_degrees() - 90).to_radians()) * m_thrust));
+		}
 
+		if(m_keyboard.get_keycode(clan::keycode_right))
+		{
+			m_physicsBody.set_angle(m_physicsBody.get_angle().from_degrees(m_physicsBody.get_angle().to_degrees() + 25 * delta));
+		}
+		if(m_keyboard.get_keycode(clan::keycode_left))
+		{
+			m_physicsBody.set_angle(m_physicsBody.get_angle().from_degrees(m_physicsBody.get_angle().to_degrees() - 25 * delta));
+		}
+	}
 }
 
 

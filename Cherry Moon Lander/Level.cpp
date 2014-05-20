@@ -13,7 +13,7 @@ Level::Level(std::string folderName)
 
 	m_levelSprite = clan::Sprite(m_canvas, "level/" + folderName + "/level.png");
 	m_levelSize = clan::Size(m_levelSprite.get_width(), m_levelSprite.get_height());
-	m_levelCollisionOutline = m_levelSprite.create_collision_outline(m_canvas);
+	m_levelCollisionOutline = m_levelSprite.create_collision_outline(m_canvas, 128, clan::OutlineAccuracy::accuracy_low);
 
 
 	std::string path = "level/" + folderName + "/properties.xml";
@@ -128,8 +128,8 @@ void Level::setup_body()
 
 	clan::FixtureDescription fix_desc(m_physicsWorld);
 	fix_desc.set_shape(body_shape);
-	fix_desc.set_restitution(0.1f);
-	fix_desc.set_friction(0.05f);
+	fix_desc.set_restitution(0.0f);
+	fix_desc.set_friction(1.0f);
 	fix_desc.set_density(1000.0f);
 	
 	clan::Fixture body_fixture(pc, m_levelPhysicsBody, fix_desc);
