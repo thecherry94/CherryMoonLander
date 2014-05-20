@@ -5,4 +5,8 @@
     <translation origin="center"/>
     <rotation origin="center"/>
   </sprite>
+
+  <font name="acI">
+    <ttf file="ARCADE_I.TTF" />
+  </font>
 </resources>

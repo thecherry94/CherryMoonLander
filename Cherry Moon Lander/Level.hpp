@@ -53,6 +53,13 @@ class Level
 		void setup_physics(float);
 		void setup_body();
 
+
+
+		clan::Slot slot_collision_begin;
+		clan::Slot slot_collision_end;
+		void on_collision_start(clan::Body);
+		void on_collision_end(clan::Body);
+
 	public:
 
 		// Methods
