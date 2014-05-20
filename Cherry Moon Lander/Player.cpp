@@ -23,7 +23,7 @@ Player::Player(Level* pLevel)
 	m_speed = clan::Vec2f(0, 0);
 	m_physicsWorld = m_pLevel->get_physics_world();
 	m_sprite = clan::Sprite::resource(m_canvas, "playerShip", Game::get_resource_manager());
-	m_collisionOutline = m_sprite.create_collision_outline(m_canvas, 128, clan::OutlineAccuracy::accuracy_poor);
+	m_collisionOutline = m_sprite.create_collision_outline(m_canvas, 128, clan::OutlineAccuracy::accuracy_low);
 
 	setup_physics();
 	m_physicsBody.set_position(m_position);

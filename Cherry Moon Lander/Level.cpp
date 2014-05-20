@@ -100,7 +100,7 @@ void Level::draw()
 	m_levelSprite.draw(m_canvas, m_levelPhysicsBody.get_position().x, m_levelPhysicsBody.get_position().y);
 
 	m_pPlayer->draw();
-	m_pHud->draw();
+	
 
 	#ifdef __DEBUGMODE__
 		m_levelCollisionOutline.draw(0,0, clan::Colorf::red, m_canvas);
@@ -109,6 +109,8 @@ void Level::draw()
 		debug_draw.set_flags(clan::f_shape);
 		debug_draw.draw(m_canvas);
 	#endif
+
+	m_pHud->draw();
 }
 
 
@@ -133,7 +135,7 @@ void Level::setup_body()
 	clan::FixtureDescription fix_desc(m_physicsWorld);
 	fix_desc.set_shape(body_shape);
 	fix_desc.set_restitution(0.0f);
-	fix_desc.set_friction(1.0f);
+	fix_desc.set_friction(0.5f);
 	fix_desc.set_density(1000.0f);
 	
 	clan::Fixture body_fixture(pc, m_levelPhysicsBody, fix_desc);
