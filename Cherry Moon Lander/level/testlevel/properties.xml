@@ -9,7 +9,7 @@
   <FuelConsumption>25</FuelConsumption>
 
   <Fuel>
-    <Item X="300" Y="100"></Item>
+    <Item X="520" Y="370"></Item>
   </Fuel>
   
   <SpawnPoint X="100" Y="60"></SpawnPoint>

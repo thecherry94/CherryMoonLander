@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="FuelItem.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Level.cpp" />

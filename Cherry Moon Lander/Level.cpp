@@ -101,6 +101,11 @@ void Level::draw()
 
 	m_pPlayer->draw();
 	
+	std::list<FuelItem*>::iterator itFuel;
+	for(itFuel = m_fuelItems.begin(); itFuel != m_fuelItems.end(); itFuel++)
+	{
+		(*itFuel)->draw();
+	}
 
 	#ifdef __DEBUGMODE__
 		m_levelCollisionOutline.draw(0,0, clan::Colorf::red, m_canvas);
@@ -125,7 +130,7 @@ void Level::setup_body()
 	clan::PhysicsContext pc = m_physicsWorld.get_pc();
 	clan::BodyDescription body_desc(m_physicsWorld);
 	body_desc.set_position(0, 0);
-	body_desc.set_type(clan::BodyType::body_static);
+	body_desc.set_type(clan::BodyType::body_kinematic);
 
 	m_levelPhysicsBody = clan::Body(pc, body_desc);
 

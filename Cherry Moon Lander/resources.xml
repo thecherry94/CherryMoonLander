@@ -6,6 +6,12 @@
     <rotation origin="center"/>
   </sprite>
 
+  <sprite name="fuelTank">
+    <image file="gfx/fuel.png" />
+    <translation origin="center"/>
+    <rotation origin="center"/>
+  </sprite>
+
   <font name="acI">
     <ttf file="ARCADE_I.TTF" />
   </font>

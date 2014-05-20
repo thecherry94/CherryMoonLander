@@ -74,6 +74,9 @@
     <ClCompile Include="Hud.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="FuelItem.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="resources.xml">
