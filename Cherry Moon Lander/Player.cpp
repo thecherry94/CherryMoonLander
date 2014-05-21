@@ -120,6 +120,13 @@ void Player::draw()
 }
 
 
+void Player::pickup_fuel(FuelItem* pItem)
+{
+	m_fuelCurrent = m_fuelMax;
+	pItem->set_picked_up(true);
+}
+
+
 void Player::on_collision_start(clan::Body body)
 {
 	Game::commence_quit_application();

@@ -55,14 +55,12 @@ Level::Level(std::string folderName)
 
 	// Load fuel items from xml	
 	rapidxml::xml_node<>* fuelNode = root_node->first_node("Fuel");
-	for(rapidxml::xml_node<>* fuelItemNode = fuelNode->first_node(); fuelItemNode != NULL; fuelItemNode = fuelNode->next_sibling())
+	for(rapidxml::xml_node<>* fuelItemNode = fuelNode->first_node("Item"); fuelItemNode != NULL; fuelItemNode = fuelItemNode->next_sibling("Item"))
 	{
 		m_fuelItems.push_back(new FuelItem(
+			this,
 			atoi(fuelItemNode->first_attribute("X")->value()),
 			atoi(fuelItemNode->first_attribute("Y")->value())));
-
-		if(fuelItemNode == fuelNode->last_node())
-			break;
 	}
 	
 
@@ -93,6 +91,22 @@ void Level::update(float delta)
 
 	m_pPlayer->update(delta);
 	m_levelSprite.set_angle(m_levelPhysicsBody.get_angle());
+
+	std::list<FuelItem*>::iterator itFuel;
+	for(itFuel = m_fuelItems.begin(); itFuel != m_fuelItems.end();)
+	{
+		(*itFuel)->update(delta);
+
+		if((*itFuel)->get_picked_up())
+		{
+			delete (*itFuel);
+			itFuel = m_fuelItems.erase(itFuel);
+		}
+		else
+		{
+			itFuel++;
+		}		
+	}	
 }
 
 void Level::draw()

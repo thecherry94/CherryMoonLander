@@ -10,6 +10,8 @@
 
   <Fuel>
     <Item X="520" Y="370"></Item>
+    <Item X="50" Y="400"></Item>
+    <Item X="100" Y="100"></Item>
   </Fuel>
   
   <SpawnPoint X="100" Y="60"></SpawnPoint>

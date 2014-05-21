@@ -9,6 +9,7 @@
 
 class Player;
 class Hud;
+class FuelItem;
 class Level
 {
 	friend Level;
@@ -90,4 +91,5 @@ class Level
 		float get_player_mass() { return m_playerMass; }
 		float get_player_thrust() { return m_playerThrust; }
 
+		Player* get_player() { return m_pPlayer; }
 };

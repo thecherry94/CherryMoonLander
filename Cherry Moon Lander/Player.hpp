@@ -2,8 +2,10 @@
 
 #include "precomp.hpp"
 #include "Level.hpp"
+#include "FuelItem.hpp"
 
 class Level;
+class FuelItem;
 class Player
 {
 	private:
@@ -50,6 +52,8 @@ class Player
 
 		void update(float);
 		void draw();
+
+		void pickup_fuel(FuelItem*);
 
 
 		// Getter & Setter
