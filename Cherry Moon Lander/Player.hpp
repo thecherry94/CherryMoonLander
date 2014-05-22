@@ -23,6 +23,7 @@ class Player
 		clan::Sprite m_sprite;
 		clan::CollisionOutline m_collisionOutline;
 		clan::Body m_physicsBody;
+		clan::Fixture m_physicsBodyFixture;
 
 		bool m_acceptInput;
 		int m_hp;
@@ -32,8 +33,8 @@ class Player
 		float m_fuelMax;
 		float m_fuelConsumption;
 
-		clan::Slot slot_collision_begin;
-		clan::Slot slot_collision_end;
+		clan::Callback<void(clan::Body)> cb_begin_collision;
+		clan::Callback<void(clan::Body)> cb_end_collision;
 		
 		// Methods
 		//

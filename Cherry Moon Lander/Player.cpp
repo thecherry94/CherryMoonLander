@@ -30,8 +30,12 @@ Player::Player(Level* pLevel)
 	m_physicsBody.set_angle(clan::Angle::from_degrees(0));
 
 
-	slot_collision_begin = m_physicsBody.sig_begin_collision().connect(this, &Player::on_collision_start);
-	slot_collision_end = m_physicsBody.sig_end_collision().connect(this, &Player::on_collision_end);
+
+	cb_begin_collision.set(this, &Player::on_collision_start);
+	m_physicsBody.sig_begin_collision().connect(cb_begin_collision);
+
+	cb_end_collision.set(this, &Player::on_collision_end);
+	m_physicsBody.sig_end_collision().connect(cb_end_collision);
 }
 
 
@@ -74,7 +78,7 @@ void Player::setup_physics()
 	fix_desc.set_friction(1.0f);
 	fix_desc.set_density(m_mass);
 
-	clan::Fixture(pc, m_physicsBody, fix_desc);
+	m_physicsBodyFixture = clan::Fixture(pc, m_physicsBody, fix_desc);
 }
 
 
@@ -125,6 +129,7 @@ void Player::pickup_fuel(FuelItem* pItem)
 	m_fuelCurrent = m_fuelMax;
 	pItem->set_picked_up(true);
 }
+
 
 
 void Player::on_collision_start(clan::Body body)

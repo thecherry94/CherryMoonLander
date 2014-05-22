@@ -9,7 +9,8 @@ Game::Game()
 	m_resourceManager = clan::XMLResourceManager::create(clan::XMLResourceDocument("resources.xml"));
 	m_quit = false;
 
-	m_slotOnExit = m_window.sig_window_close().connect(this, &Game::on_window_close);
+	cb_window_close.set(this, &Game::on_window_close);
+	m_window.sig_window_close().connect(cb_window_close);
 }
 
 

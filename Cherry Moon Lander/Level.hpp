@@ -32,6 +32,7 @@ class Level
 		clan::Sprite m_levelSprite;
 		clan::CollisionOutline m_levelCollisionOutline;
 		clan::Body m_levelPhysicsBody;
+		clan::Fixture m_levelPhysicsBodyFixture;
 		clan::Point m_levelSpawnPoint;
 		clan::Rect m_levelEndArea;
 
@@ -56,8 +57,9 @@ class Level
 
 
 
-		clan::Slot slot_collision_begin;
-		clan::Slot slot_collision_end;
+		clan::Callback<void(clan::Body)> cb_collision_begin;
+		clan::Callback<void(clan::Body)> cb_collision_end;
+
 		void on_collision_start(clan::Body);
 		void on_collision_end(clan::Body);
 

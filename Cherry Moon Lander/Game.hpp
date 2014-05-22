@@ -15,8 +15,7 @@ class Game
 		static clan::DisplayWindow m_window;
 		static bool m_quit;
 
-		clan::Slot m_slotOnExit;
-
+		clan::Callback<void()> cb_window_close;
 
 		// Methods
 		//

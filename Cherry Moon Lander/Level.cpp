@@ -71,15 +71,22 @@ Level::Level(std::string folderName)
 
 	m_pPlayer = new Player(this);
 	m_pHud = new Hud(m_pPlayer);
+	
 
-	m_physicsWorld.set_olm(true);
-	slot_collision_begin = m_levelPhysicsBody.sig_begin_collision().connect(this, &Level::on_collision_start);
-	slot_collision_end = m_levelPhysicsBody.sig_end_collision().connect(this, &Level::on_collision_end);
+
+	cb_collision_begin.set(this, &Level::on_collision_start);
+	m_levelPhysicsBody.sig_begin_collision().connect(cb_collision_begin);
+
+	cb_collision_end.set(this, &Level::on_collision_end);
+	m_levelPhysicsBody.sig_end_collision().connect(cb_collision_end);
 }
 
 
 Level::~Level()
 {
+	delete(m_pHud);
+	m_pHud = NULL;
+
 	delete(m_pPlayer);
 	m_pPlayer = NULL;
 }
@@ -144,7 +151,7 @@ void Level::setup_body()
 	clan::PhysicsContext pc = m_physicsWorld.get_pc();
 	clan::BodyDescription body_desc(m_physicsWorld);
 	body_desc.set_position(0, 0);
-	body_desc.set_type(clan::BodyType::body_kinematic);
+	body_desc.set_type(clan::BodyType::body_static);
 
 	m_levelPhysicsBody = clan::Body(pc, body_desc);
 
@@ -157,7 +164,7 @@ void Level::setup_body()
 	fix_desc.set_friction(0.5f);
 	fix_desc.set_density(1000.0f);
 	
-	clan::Fixture body_fixture(pc, m_levelPhysicsBody, fix_desc);
+	m_levelPhysicsBodyFixture = clan::Fixture(pc, m_levelPhysicsBody, fix_desc);
 }
 
 
