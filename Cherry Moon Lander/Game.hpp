@@ -13,6 +13,7 @@ class Game
 		static clan::PhysicsWorld m_physicsWorld;
 		static clan::ResourceManager m_resourceManager;
 		static clan::DisplayWindow m_window;
+		static clan::Colorf m_clearColor;
 		static bool m_quit;
 
 		clan::Callback<void()> cb_window_close;
@@ -42,8 +43,8 @@ class Game
 		// Getter & Setter
 		//
 		static clan::PhysicsWorld& get_physics_world() { return m_physicsWorld; }
-
 		static clan::DisplayWindow& get_window() { return m_window; }
-
 		static clan::ResourceManager& get_resource_manager() { return m_resourceManager; }
+
+		static void set_clear_color(clan::Colorf c) { m_clearColor = c; }
 };

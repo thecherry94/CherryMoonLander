@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\temp\clanlib3.1\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\temp\clanlib3.1\Lib\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\temp\clanlib3.1\Include;F:\Programming Libs\ClanLib 3\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\temp\clanlib3.1\Lib\Win32;F:\Programming Libs\ClanLib 3\Lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\temp\clanlib3.1\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\temp\clanlib3.1\Lib\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\temp\clanlib3.1\Include;F:\Programming Libs\ClanLib 3\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\temp\clanlib3.1\Lib\Win32;F:\Programming Libs\ClanLib 3\Lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

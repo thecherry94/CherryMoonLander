@@ -15,6 +15,7 @@ class Player
 		Level* m_pLevel;
 
 		clan::Vec2f m_position;
+		clan::Vec2f m_positionOld;
 		clan::Vec2f m_speed;
 		clan::PhysicsWorld m_physicsWorld;
 		clan::Canvas m_canvas;
@@ -32,16 +33,21 @@ class Player
 		float m_fuelCurrent;
 		float m_fuelMax;
 		float m_fuelConsumption;
+		bool m_isColliding;
 
+		/*
 		clan::Callback<void(clan::Body)> cb_begin_collision;
 		clan::Callback<void(clan::Body)> cb_end_collision;
-		
+		*/
+
 		// Methods
 		//
 
 		void setup_physics();
-		void on_collision_start(clan::Body);
-		void on_collision_end(clan::Body);
+		void on_collision_start();
+		void on_collision_end();
+		void while_colliding();
+
 
 	public:
 

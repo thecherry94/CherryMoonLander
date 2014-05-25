@@ -39,6 +39,8 @@ void Game::setup_physics()
 	desc.set_position_iterations(3);
 
 	m_physicsWorld = clan::PhysicsWorld(desc);
+
+	m_clearColor = clan::Colorf::blue;
 }
 
 
@@ -58,7 +60,7 @@ void Game::start()
 	{
 		time.update();
 
-		m_window.get_gc().clear(clan::Colorf::blue);
+		m_window.get_gc().clear(m_clearColor);
 
 		// -----------------------
 		// Main Game execution
@@ -86,4 +88,5 @@ void Game::on_window_close()
 clan::DisplayWindow Game::m_window;
 clan::PhysicsWorld Game::m_physicsWorld;
 clan::ResourceManager Game::m_resourceManager;
+clan::Colorf Game::m_clearColor;
 bool Game::m_quit;

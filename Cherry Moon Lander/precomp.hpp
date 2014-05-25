@@ -1,6 +1,6 @@
 #pragma once
 
-#define __DEBUGMODE__
+//#define __DEBUGMODE__
 
 #include <ClanLib/application.h>
 #include <ClanLib/core.h>

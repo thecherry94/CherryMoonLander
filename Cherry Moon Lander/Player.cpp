@@ -19,23 +19,38 @@ Player::Player(Level* pLevel)
 	m_fuelMax = m_fuelCurrent;
 	m_fuelConsumption = m_pLevel->get_fuel_consumption();
 	m_hp = 100;
+	m_isColliding = false;
 
 	m_speed = clan::Vec2f(0, 0);
 	m_physicsWorld = m_pLevel->get_physics_world();
 	m_sprite = clan::Sprite::resource(m_canvas, "playerShip", Game::get_resource_manager());
-	m_collisionOutline = m_sprite.create_collision_outline(m_canvas, 128, clan::OutlineAccuracy::accuracy_low);
+	
+	clan::Contour contour;
+	int collision_offset = 3;
+	contour.get_points().push_back(clan::Pointf(-collision_offset, -collision_offset));
+	contour.get_points().push_back(clan::Pointf(-collision_offset, m_sprite.get_height() + collision_offset));
+	contour.get_points().push_back(clan::Pointf(m_sprite.get_width() + collision_offset, m_sprite.get_height() + collision_offset));
+	contour.get_points().push_back(clan::Pointf(m_sprite.get_width() + collision_offset, -collision_offset));
+
+	m_collisionOutline.get_contours().push_back(contour);
+	m_collisionOutline.calculate_radius();
+	m_collisionOutline.calculate_sub_circles();
+
+	m_collisionOutline.set_rotation_hotspot(clan::origin_center, m_sprite.get_width() / 2.0f, m_sprite.get_height() / 2.0f);
+	//m_collisionOutline.set_alignment(clan::origin_center, m_sprite.get_width() / 2.0f, m_sprite.get_height() / 2.0f);
 
 	setup_physics();
 	m_physicsBody.set_position(m_position);
 	m_physicsBody.set_angle(clan::Angle::from_degrees(0));
 
 
-
+	/*
 	cb_begin_collision.set(this, &Player::on_collision_start);
 	m_physicsBody.sig_begin_collision().connect(cb_begin_collision);
 
 	cb_end_collision.set(this, &Player::on_collision_end);
 	m_physicsBody.sig_end_collision().connect(cb_end_collision);
+	*/
 }
 
 
@@ -85,9 +100,13 @@ void Player::setup_physics()
 void Player::update(float delta)
 {
 	m_position = m_physicsBody.get_position();
+	m_speed = m_positionOld - m_position;
 	m_sprite.set_angle(m_physicsBody.get_angle());
 
-	if(m_acceptInput && m_fuelCurrent > 0)
+	m_collisionOutline.set_angle(m_physicsBody.get_angle());
+	m_collisionOutline.set_translation(m_position.x - m_sprite.get_width() / 2.0f, m_position.y - m_sprite.get_height() / 2.0f);
+
+ 	if(m_acceptInput && m_fuelCurrent > 0 && m_hp > 0)
 	{
 		if(m_keyboard.get_keycode(clan::keycode_space))
 		{
@@ -102,7 +121,7 @@ void Player::update(float delta)
 
 
 
-		float torque = 150.0f;
+		float torque = 200.0f;
 
 		if(m_keyboard.get_keycode(clan::keycode_right))
 		{
@@ -115,12 +134,37 @@ void Player::update(float delta)
 			m_physicsBody.apply_torque(-torque * delta);
 		}
 	}
+
+	m_positionOld = m_position;
+
+	if (m_collisionOutline.collide(m_pLevel->get_collision_outline()))
+	{
+		if (!m_isColliding)
+		{
+			m_isColliding = true;
+			on_collision_start();
+		}
+
+		while_colliding();
+	}
+	else
+	{
+		if (m_isColliding)
+		{
+			m_isColliding = false;
+			on_collision_end();
+		}
+	}
 }
 
 
 void Player::draw()
 {
 	m_sprite.draw(m_canvas, m_physicsBody.get_position().x, m_physicsBody.get_position().y);
+	
+	#ifdef __DEBUGMODE__
+		m_collisionOutline.draw(m_collisionOutline.get_translation().x / 800.0f, m_collisionOutline.get_translation().y / 600.0f, clan::Colorf::pink, m_canvas);
+	#endif
 }
 
 
@@ -131,14 +175,27 @@ void Player::pickup_fuel(FuelItem* pItem)
 }
 
 
-
-void Player::on_collision_start(clan::Body body)
+void Player::on_collision_start()
 {
-	Game::commence_quit_application();
+	float dmg = m_speed.length() * 15;
+	if (dmg > 10)
+	{
+		Game::set_clear_color(clan::Colorf::red);
+		m_hp -= dmg;
+
+		if (m_hp < 0)
+			m_hp = 0;
+	}
 }
 
 
-void Player::on_collision_end(clan::Body body)
+void Player::on_collision_end()
+{
+	Game::set_clear_color(clan::Colorf::blue);
+}
+
+
+void Player::while_colliding()
 {
 
 }
