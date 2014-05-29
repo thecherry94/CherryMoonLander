@@ -7,7 +7,7 @@ Level::Level(std::string folderName)
 {
 	clan::DisplayWindow win = Game::get_window();
 
-	m_canvas = clan::Canvas(win);
+	m_canvas = Game::get_canvas();
 	m_keyboard = win.get_ic().get_keyboard();
 	m_mouse = win.get_ic().get_mouse();
 
@@ -137,6 +137,8 @@ void Level::draw()
 	#endif
 
 	m_pHud->draw();
+
+	m_canvas.set_translate(-m_pPlayer->get_position() + clan::Vec2f(400, 300));
 }
 
 

@@ -6,7 +6,7 @@ FuelItem::FuelItem(Level* pLevel, int x, int y)
 	m_pLevel = pLevel;
 
 	m_pos = clan::Vec2f(x, y);
-	m_canvas = clan::Canvas(Game::get_window());
+	m_canvas = Game::get_canvas();
 	m_pickedUp = false;
 
 	m_sprite = clan::Sprite::resource(m_canvas, "fuelTank", Game::get_resource_manager());

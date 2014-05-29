@@ -36,5 +36,5 @@ void Hud::draw()
 
 	// Draw Rotation
 	//
-	m_font.draw_text(m_canvas, clan::Pointf(500, 40), clan::StringHelp::int_to_text(((int)m_pPlayer->get_angle().to_degrees()) % 360), clan::Colorf::lightgreen);
+	m_font.draw_text(m_canvas, clan::Pointf(500, 40), clan::StringHelp::int_to_text(((int)m_pPlayer->get_angle().to_degrees())), clan::Colorf::lightgreen);
 }

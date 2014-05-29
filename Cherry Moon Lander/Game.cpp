@@ -17,14 +17,15 @@ Game::Game()
 void Game::setup_window()
 {
 	clan::DisplayWindowDescription desc;
-	desc.set_position(clan::Rect(-800, 100, 0, 700), true);
-	//desc.set_size(clan::Size(800, 600), true);
+	//desc.set_position(clan::Rect(-800, 100, 0, 700), true);
+	desc.set_size(clan::Size(800, 600), true);
 	desc.set_allow_resize(false);
 	desc.set_multisampling(4);
-	desc.set_title("Cherry Moon Lander - v0.1 Beta");
+	desc.set_title("Cherry Moon Lander - v0.3 Alpha");
 	desc.set_refresh_rate(144);
 
 	m_window = clan::DisplayWindow(desc);
+	m_canvas = clan::Canvas(m_window);
 }
 
 
@@ -69,6 +70,8 @@ void Game::start()
 		pTestlevel->update(time.get_time_elapsed());
 		pTestlevel->draw();
 
+		
+
 		m_window.flip(1);
 		clan::KeepAlive::process();
 	}
@@ -89,4 +92,5 @@ clan::DisplayWindow Game::m_window;
 clan::PhysicsWorld Game::m_physicsWorld;
 clan::ResourceManager Game::m_resourceManager;
 clan::Colorf Game::m_clearColor;
+clan::Canvas Game::m_canvas;
 bool Game::m_quit;

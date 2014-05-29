@@ -1,12 +1,16 @@
 #include "Player.hpp"
 #include "Game.hpp"
 
+
+template<class T>
+bool is_value_between(T smaller, T larger, T value);
+
 Player::Player(Level* pLevel)
 {
 	m_pLevel = pLevel;
 
 	clan::DisplayWindow win = Game::get_window();
-	m_canvas = clan::Canvas(win);
+	m_canvas = Game::get_canvas();
 	m_keyboard = win.get_ic().get_keyboard();
 	m_mouse = win.get_ic().get_mouse();
 
@@ -50,6 +54,14 @@ Player::Player(Level* pLevel)
 
 	cb_end_collision.set(this, &Player::on_collision_end);
 	m_physicsBody.sig_end_collision().connect(cb_end_collision);
+	*/
+
+	
+	/*
+	m_canvas.set_map_mode(clan::MapMode::map_user_projection);
+	m_canvas.get_gc().set_viewport(clan::Rectf(0.0f, 0.0f, 800, 600));
+	m_canvas.set_projection(clan::Mat4f::ortho_2d(0.0f, (float)800, (float)600, 0.0f, clan::Handedness::handed_left, clan::ClipZRange::clip_zero_positive_w));
+	m_canvas.set_modelview(clan::Mat4f::identity());
 	*/
 }
 
@@ -155,6 +167,10 @@ void Player::update(float delta)
 			on_collision_end();
 		}
 	}
+
+
+	//m_canvas.set_cliprect(clan::Rect(m_position.x - 400, m_position.y - 300, clan::Size(800, 600)));
+	//m_canvas.get_gc().set_viewport(clan::Rect(m_position.x - 400, m_position.y - 300, clan::Size(800, 600)));
 }
 
 
@@ -186,6 +202,8 @@ void Player::on_collision_start()
 		if (m_hp < 0)
 			m_hp = 0;
 	}
+
+	
 }
 
 
@@ -197,5 +215,19 @@ void Player::on_collision_end()
 
 void Player::while_colliding()
 {
+	if (is_value_between(88, 92, abs((int)m_physicsBody.get_angle().to_degrees())))
+	{
+		m_hp = 0;
+	}
+}
 
+
+
+template<class T>
+bool is_value_between(T smaller, T larger, T value)
+{
+	if (value > smaller && value < larger)
+		return true;
+
+	return false;
 }
